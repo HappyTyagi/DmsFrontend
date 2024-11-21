@@ -112,7 +112,7 @@ function Sidebar() {
   const handleLogout = () => {
     localStorage.removeItem(tokenKey);
     sessionStorage.removeItem("counts");
-    navigate("/auth");
+    navigate("/");
   };
 
   const handleCreateToggle = () => {
@@ -164,7 +164,7 @@ function Sidebar() {
 
           {role === "USER" && (
             <>
-              <SidebarLink to="/" icon={InboxIcon} text="Dashboard" />
+              <SidebarLink to="/dashboard" icon={InboxIcon} text="Dashboard" />
 
               <SidebarLink
                 to="/users"
@@ -198,7 +198,7 @@ function Sidebar() {
 
           {role === "ADMIN" && (
             <>
-              <SidebarLink to="/" icon={InboxIcon} text="Dashboard" />
+              <SidebarLink to="/dashboard" icon={InboxIcon} text="Dashboard" />
               <hr className="border-t border-pink-800 mt-1" />
               <div>
                 <SidebarLink
@@ -322,7 +322,7 @@ function Sidebar() {
 
           {role === "DEPARTMENT ADMIN" && (
             <>
-              <SidebarLink to="/" icon={InboxIcon} text="Dashboard" />
+              <SidebarLink to="/dashboard" icon={InboxIcon} text="Dashboard" />
               <SidebarLink
                 to="/Departmentusers"
                 icon={UserGroupIcon}
@@ -390,7 +390,7 @@ function Sidebar() {
           )}
           {role === "BRANCH ADMIN" && (
             <>
-              <SidebarLink to="/" icon={InboxIcon} text="Dashboard" />
+              <SidebarLink to="/dashboard" icon={InboxIcon} text="Dashboard" />
               <SidebarLink
                 to="/branchusers"
                 icon={UserGroupIcon}

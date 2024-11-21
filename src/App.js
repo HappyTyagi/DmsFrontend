@@ -31,7 +31,7 @@ const BRANCH_ADMIN = "BRANCH ADMIN"; // New role
 const DEPARTMENT_ADMIN = "DEPARTMENT ADMIN";
 
 const protectedRoutes = [
-  { path: "/", element: <Dashboard />, allowedRoles: [ADMIN, USER, BRANCH_ADMIN,DEPARTMENT_ADMIN] },
+  { path: "/dashboard", element: <Dashboard />, allowedRoles: [ADMIN, USER, BRANCH_ADMIN,DEPARTMENT_ADMIN] },
   { path: "/inbox", element: <Inbox />, allowedRoles: [ADMIN, USER, BRANCH_ADMIN,DEPARTMENT_ADMIN] },
   { path: "/users", element: <Users />, allowedRoles: [ADMIN,USER] },
   { path: "/branchusers", element: <BranchUsers/>, allowedRoles: [BRANCH_ADMIN] },
@@ -71,7 +71,7 @@ function App() {
               }
             />
           ))}
-          <Route path="/auth" element={<LoginPage />} />
+          <Route path="/" element={<LoginPage />} />
         </Routes>
       </div>
     </BrowserRouter>

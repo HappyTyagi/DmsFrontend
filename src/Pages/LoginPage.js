@@ -159,7 +159,7 @@ const LoginPage = () => {
           setAlertMessage("Login successful!");
   
           // Navigate to the appropriate dashboard
-          navigate("/");
+          navigate("/dashboard");
         }
       } catch (error) {
         handleError(error, "Invalid OTP.");
