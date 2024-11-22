@@ -41,7 +41,7 @@ function Header({ toggleSidebar, userName }) {
   }, [dropdownOpen]);
 
   return (
-    <header className="bg-rose-900 text-white p-0.5 flex justify-between items-center shadow-inner relative">
+    <header className="bg-blue-800 text-white p-0.5 flex justify-between items-center shadow-inner relative">
       <div className="flex">
         <button
           onClick={toggleSidebar}

@@ -20,7 +20,7 @@ import {
   ShoppingCartIcon,
   ClipboardDocumentListIcon,
 } from "@heroicons/react/24/solid";
-import logo from "../Assets/Logo.png";
+import logo2 from "../Assets/logo2.jpg";
 
 const tokenKey = "tokenKey";
 
@@ -129,8 +129,8 @@ function Sidebar() {
 
   const isActive = (path) =>
     location.pathname === path
-      ? "bg-pink-950 text-white"
-      : "text-white hover:bg-pink-950 hover:text-white";
+      ? "bg-blue-950 text-white"
+      : "text-white hover:bg-blue-950 hover:text-white";
 
   const SidebarLink = ({ to, icon: Icon, text, count }) => (
     <Link
@@ -144,7 +144,7 @@ function Sidebar() {
         <span>{text}</span>
       </div>
       {count > 0 && (
-        <span className="bg-red-600 text-white rounded-2xl px-2 py-1 text-xs font-semibold">
+        <span className="bg-blue-600 text-white rounded-2xl px-2 py-1 text-xs font-semibold">
           {count}
         </span>
       )}
@@ -154,13 +154,13 @@ function Sidebar() {
   const role = localStorage.getItem("role");
 
   return (
-    <div className="h-screen flex flex-col justify-between bg-rose-900 text-white w-52 p-1 transition-all duration-300">
+    <div className="h-screen flex flex-col justify-between bg-blue-800 text-white w-52 p-1 transition-all duration-300">
       <div>
         <div className="flex items-center justify-center mb-2">
-          <img className="flex w-32 h-32" src={logo} alt="DMS" />
+          <img className="flex w-30 h-30" src={logo2} alt="DMS" />
         </div>
         <nav className="flex flex-col space-y-1">
-          <hr className="border-t border-pink-800" />
+          <hr className="border-t border-blue-800" />
 
           {role === "USER" && (
             <>
@@ -199,7 +199,7 @@ function Sidebar() {
           {role === "ADMIN" && (
             <>
               <SidebarLink to="/dashboard" icon={InboxIcon} text="Dashboard" />
-              <hr className="border-t border-pink-800 mt-1" />
+              <hr className="border-t border-blue-800 mt-1" />
               <div>
                 <SidebarLink
                   to="/users"
@@ -207,7 +207,7 @@ function Sidebar() {
                   text="Users"
                   count={counts.totalUser}
                 />
-                <hr className="border-t border-pink-800 mt-1" />
+                <hr className="border-t border-blue-800 mt-1" />
                 <SidebarLink
                   to="/userRoleAssing"
                   icon={UserPlusIcon}
@@ -216,7 +216,7 @@ function Sidebar() {
                 />
                 <button
                   onClick={handleCreateToggle}
-                  className="w-full px-3 py-1 rounded-lg text-xs flex items-center justify-between text-white hover:bg-pink-950 hover:text-white mt-2"
+                  className="w-full px-3 py-1 rounded-lg text-xs flex items-center justify-between text-white hover:bg-blue-950 hover:text-white mt-2"
                 >
                   <div className="flex items-center">
                     <BuildingOfficeIcon className="h-5 w-5 mr-3" />
@@ -230,21 +230,21 @@ function Sidebar() {
                 </button>
                 {isCreateOpen && (
                   <div className="ml-2 flex flex-col space-y-1">
-                    <hr className="border-t border-pink-800 mt-1" />
+                    <hr className="border-t border-blue-800 mt-1" />
                     <SidebarLink
                       to="/create-branch"
                       icon={KeyIcon}
                       text="Branch"
                       count={counts.totalBranches}
                     />
-                    <hr className="border-t border-pink-800" />
+                    <hr className="border-t border-blue-800" />
                     <SidebarLink
                       to="/create-department"
                       icon={ComputerDesktopIcon}
                       text="Department"
                       count={counts.totalDepartment}
                     />
-                    <hr className="border-t border-pink-800" />
+                    <hr className="border-t border-blue-800" />
                     <SidebarLink
                       to="/create-role"
                       icon={UserCircleIcon}
@@ -265,7 +265,7 @@ function Sidebar() {
                       text="Year"
                       count={counts.annualYear}
                     /> */}
-                    <hr className="border-t border-pink-800" />
+                    <hr className="border-t border-blue-800" />
                     <SidebarLink
                       to="/create-category"
                       icon={ShoppingCartIcon}
@@ -278,7 +278,7 @@ function Sidebar() {
               <div>
                 <button
                   onClick={handleDocumentToggle}
-                  className="w-full px-3 py-1 rounded-lg text-xs font-lg flex items-center justify-between text-white hover:bg-pink-950 hover:text-white"
+                  className="w-full px-3 py-1 rounded-lg text-xs font-lg flex items-center justify-between text-white hover:bg-blue-950 hover:text-white"
                 >
                   <div className="flex items-center">
                     <DocumentTextIcon className="h-5 w-5 mr-3" />
@@ -292,7 +292,7 @@ function Sidebar() {
                 </button>
                 {isDocumentOpen && (
                   <div className="ml-2 flex flex-col space-y-1">
-                    <hr className="border-t border-pink-800 mt-1" />
+                    <hr className="border-t border-blue-800 mt-1" />
                     <SidebarLink
                       to="/approve-documents"
                       icon={LockClosedIcon}
@@ -345,7 +345,7 @@ function Sidebar() {
                 {/* Document section */}
                 <button
                   onClick={handleDocumentToggle}
-                  className="w-full px-3 py-1 rounded-lg text-xs font-lg flex items-center justify-between text-white hover:bg-pink-950 hover:text-white"
+                  className="w-full px-3 py-1 rounded-lg text-xs font-lg flex items-center justify-between text-white hover:bg-blue-950 hover:text-white"
                 >
                   <div className="flex items-center">
                     <DocumentTextIcon className="h-5 w-5 mr-3" />
@@ -359,7 +359,7 @@ function Sidebar() {
                 </button>
                 {isDocumentOpen && (
                   <div className="ml-2 flex flex-col space-y-1">
-                    <hr className="border-t border-pink-800 mt-1" />
+                    <hr className="border-t border-blue-800 mt-1" />
                     <SidebarLink
                       to="/approve-documents"
                       icon={LockClosedIcon}
@@ -413,7 +413,7 @@ function Sidebar() {
                 {/* Document section */}
                 <button
                   onClick={handleDocumentToggle}
-                  className="w-full px-3 py-1 rounded-lg text-xs font-lg flex items-center justify-between text-white hover:bg-pink-950 hover:text-white"
+                  className="w-full px-3 py-1 rounded-lg text-xs font-lg flex items-center justify-between text-white hover:bg-blue-950 hover:text-white"
                 >
                   <div className="flex items-center">
                     <DocumentTextIcon className="h-5 w-5 mr-3" />
@@ -427,7 +427,7 @@ function Sidebar() {
                 </button>
                 {isDocumentOpen && (
                   <div className="ml-2 flex flex-col space-y-1">
-                    <hr className="border-t border-pink-800 mt-1" />
+                    <hr className="border-t border-blue-800 mt-1" />
                     <SidebarLink
                       to="/approve-documents"
                       icon={LockClosedIcon}
@@ -457,19 +457,19 @@ function Sidebar() {
             </>
           )}
 
-          <hr className="border-t border-pink-800" />
+          <hr className="border-t border-blue-800" />
         </nav>
       </div>
       <div>
-        <hr className="border-t border-pink-800 mb-1" />
+        <hr className="border-t border-blue-800 mb-1" />
         <button
           onClick={handleLogout}
-          className="w-full px-3 py-1 rounded-lg text-xs font-lg flex items-center text-white hover:bg-pink-950 hover:text-white"
+          className="w-full px-3 py-1 rounded-lg text-xs font-lg flex items-center text-white hover:bg-blue-950 hover:text-white"
         >
           <ArrowLeftIcon className="h-5 w-5 mr-3" />
           Logout
         </button>
-        <hr className="border-t border-pink-800 mb-0.5 my-1" />
+        <hr className="border-t border-blue-800 mb-0.5 my-1" />
       </div>
     </div>
   );
