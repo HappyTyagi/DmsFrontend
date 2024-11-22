@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { API_HOST } from '../API/apiConfig';
 import axios from 'axios';
 import {
   EyeIcon,
@@ -24,7 +25,7 @@ const Search = () => {
   const [selectedDoc, setSelectedDoc] = useState({ paths: [] });
   const [userBranch, setUserBranch] = useState(null);
   const [userDepartment, setUserDepartment] = useState(null);
-  const [userRole, setUserRole] = useState(null);
+  let [userRole, setUserRole] = useState(null);
   const [noResultsFound, setNoResultsFound] = useState(false);
 
   useEffect(() => {
@@ -46,7 +47,7 @@ const Search = () => {
       const userId = localStorage.getItem("userId");
       const token = localStorage.getItem("tokenKey");
       const response = await axios.get(
-        `http://localhost:8080/employee/findById/${userId}`,
+        `${API_HOST}/employee/findById/${userId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -74,7 +75,7 @@ const Search = () => {
     try {
       const token = localStorage.getItem('tokenKey');
       const response = await axios.get(
-        'http://localhost:8080/CategoryMaster/findAll',
+        `${API_HOST}/CategoryMaster/findAll`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -89,7 +90,7 @@ const Search = () => {
     try {
       const token = localStorage.getItem('tokenKey');
       const response = await axios.get(
-        'http://localhost:8080/branchmaster/findAll',
+        `${API_HOST}/branchmaster/findAll`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -104,7 +105,7 @@ const Search = () => {
     try {
       const token = localStorage.getItem('tokenKey');
       const response = await axios.get(
-        `http://localhost:8080/DepartmentMaster/findByBranch/${branchId}`,
+        `${API_HOST}/DepartmentMaster/findByBranch/${branchId}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -119,7 +120,7 @@ const Search = () => {
     try {
       const token = localStorage.getItem('tokenKey');
       const response = await axios.get(
-        `http://localhost:8080/api/documents/${doc.id}/paths`,
+        `${API_HOST}/api/documents/${doc.id}/paths`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -143,13 +144,12 @@ const Search = () => {
     try {
       const token = localStorage.getItem('tokenKey');
       let searchPayload = { ...searchCriteria };
-
       if (userRole === 'BRANCH ADMIN' && userBranch) {
         searchPayload.branch = userBranch.id;
       }
 
       const response = await axios.post(
-        'http://localhost:8080/api/documents/search',
+        `${API_HOST}/api/documents/search`,
         searchPayload,
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -196,7 +196,7 @@ const Search = () => {
     const category = file.documentHeader.categoryMaster.name;
     const fileName = file.docName;
 
-    const fileUrl = `http://localhost:8080/api/documents/${year}/${month}/${category}/${fileName}`;
+    const fileUrl = `${API_HOST}/api/documents/${year}/${month}/${category}/${fileName}`;
 
     try {
       const response = await axios.get(fileUrl, {
@@ -212,6 +212,7 @@ const Search = () => {
     }
   };
 
+  userRole=localStorage.getItem('role');
   const renderSearchFields = () => {
     return (
       <div className="grid grid-cols-3 gap-4 mb-4">
