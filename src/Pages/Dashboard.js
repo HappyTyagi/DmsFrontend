@@ -93,7 +93,7 @@ function Dashboard() {
 
         let summaryUrl = '';
 
-        if (role === "ADMIN") {
+        if (role === "ADMIN" || role === "BRANCH ADMIN"  ||  role === "DEPARTMENT ADMIN") {
           summaryUrl = `${API_HOST}/api/documents/document/summary/by/${employeeId}`;
         } else {
           summaryUrl = `${API_HOST}/api/documents/documents-summary/${employeeId}`;

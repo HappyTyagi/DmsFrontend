@@ -127,29 +127,36 @@ const DocumentManagement = ({fieldsDisabled}) => {
     const createdOnDate = new Date(file.createdOn); // Convert timestamp to Date object
     const year = createdOnDate.getFullYear(); // Extract year
     const month = String(createdOnDate.getMonth() + 1).padStart(2, "0"); // Extract month and pad with zero
-    const category = file.documentHeader.categoryMaster.name; // Assuming categoryMaster has categoryName field
+    const category = file.documentHeader.categoryMaster.name; // Get the category name
     const fileName = file.docName; // The file name
-  
+    
     // Construct the URL based on the Spring Boot @GetMapping pattern
     const fileUrl = `http://localhost:8080/api/documents/${year}/${month}/${category}/${fileName}`;
-  
+    
     try {
       // Fetch the file using axios and pass the token in the headers
       const response = await axios.get(fileUrl, {
         headers: { Authorization: `Bearer ${token}` },
-        responseType: 'blob' // Important to get the response as a blob (binary large object)
+        responseType: "blob", // Fetch the file as a blob
       });
-  
-      // Create a blob from the response and specify it as a PDF
-      const blob = new Blob([response.data], { type: 'application/pdf' });
+      
+      // Get the MIME type of the file from the response headers
+      const contentType = response.headers["content-type"];
+      
+      // Create a blob from the response
+      const blob = new Blob([response.data], { type: contentType });
+      
+      // Generate a URL for the blob
       const blobUrl = window.URL.createObjectURL(blob);
-  
+      
       // Open the blob in a new tab
       window.open(blobUrl, "_blank");
     } catch (error) {
       console.error("Error fetching file:", error);
+      alert("There was an error opening the file. Please try again.");
     }
   };
+  
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -175,63 +182,60 @@ const DocumentManagement = ({fieldsDisabled}) => {
   // Handle the file upload when the "Upload" button is clicked
   const handleUploadDocument = async () => {
     if (selectedFiles.length === 0) {
-      alert("Please select at least one file to upload.");
-      return;
+        alert("Please select at least one file to upload.");
+        return;
     }
 
     const uploadData = new FormData();
-    uploadData.append("category", formData.category.name); // Update to send the category name, if needed
+    uploadData.append("category", formData.category.name || "default-category");
     selectedFiles.forEach((file) => {
-      uploadData.append("files", file); // Append files to FormData
+        uploadData.append("files", file);
     });
 
     try {
-      const response = await fetch(
-        "http://localhost:8080/api/documents/upload",
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-          body: uploadData,
+        const response = await fetch("http://localhost:8080/api/documents/upload", {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+            body: uploadData,
+        });
+
+        if (!response.ok) {
+            const errorDetails = await response.json();
+            throw new Error(`HTTP error! status: ${response.status}, message: ${errorDetails}`);
         }
-      );
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
+        const filePaths = await response.json();
+        console.log("Files uploaded successfully:", filePaths);
 
-      const result = await response.json();
-      console.log("File uploaded successfully:", result);
+        if (
+            Array.isArray(filePaths) &&
+            filePaths.every((path) => typeof path === "string")
+        ) {
+            setFormData((prevData) => ({
+                ...prevData,
+                uploadedFilePaths: filePaths,
+            }));
 
-      const filePaths = result; // This should directly match your expected response format
+            setUploadedFileNames(selectedFiles.map((file) => file.name));
+            alert("Files uploaded successfully!");
 
-      if (
-        Array.isArray(filePaths) &&
-        filePaths.every((path) => typeof path === "string")
-      ) {
-        setFormData((prevData) => ({
-          ...prevData,
-          uploadedFilePaths: filePaths,
-        }));
-
-        setUploadedFileNames(selectedFiles.map((file) => file.name));
-
-        alert("Files uploaded successfully!");
-
-        setSelectedFiles([]);
-        setIsUploadEnabled(false);
-      } else {
-        throw new Error("Invalid file paths returned from upload.");
-      }
+            setSelectedFiles([]);
+            setIsUploadEnabled(false);
+        } else {
+            throw new Error("Invalid file paths returned from upload.");
+        }
     } catch (error) {
-      console.error("Error uploading file:", error);
-      alert("There was an error uploading the file. Please try again.");
+        console.error("Error uploading file:", error);
+        alert("There was an error uploading the file. Please try again.");
     }
-  };
+};
+
 
   // Handle adding the document
   const handleAddDocument = async () => {
+    // Validate required fields and uploaded files
     if (
       !formData.fileNo ||
       !formData.title ||
@@ -243,34 +247,41 @@ const DocumentManagement = ({fieldsDisabled}) => {
       alert("Please fill in all the required fields and upload a file.");
       return;
     }
-
+  
+    // Construct the payload
     const payload = {
       documentHeader: {
         fileNo: formData.fileNo,
         title: formData.title,
         subject: formData.subject,
         version: formData.version,
-        categoryMaster: { id: formData.category.id },
-        employee: { id: parseInt(UserId, 10) },
+        categoryMaster: { id: formData.category.id }, // Category ID from formData
+        employee: { id: parseInt(UserId, 10) }, // Employee ID from user session
       },
-      filePaths: formData.uploadedFilePaths,
+      filePaths: formData.uploadedFilePaths, // Paths of uploaded files
     };
-
+  
     try {
+      // Send the payload to the backend
       const response = await fetch("http://localhost:8080/api/documents/save", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${token}`, // Include the authorization token
         },
-        body: JSON.stringify(payload),
+        body: JSON.stringify(payload), // Convert payload to JSON
       });
-
-      if (!response.ok)
-        throw new Error(`HTTP error! status: ${response.status}`);
-
+  
+      // Check if the response is successful
+      if (!response.ok) {
+        const errorDetails = await response.text(); // Get error details from the response
+        throw new Error(`HTTP error! status: ${response.status}, message: ${errorDetails}`);
+      }
+  
+      // If successful, reset the form and reload documents
       alert("Document saved successfully!");
-
+  
+      // Reset the form data
       setFormData({
         fileNo: "",
         title: "",
@@ -279,14 +290,15 @@ const DocumentManagement = ({fieldsDisabled}) => {
         category: null,
         uploadedFilePaths: [],
       });
-
-      setUploadedFileNames([]);
-      fetchDocuments();
+  
+      setUploadedFileNames([]); // Clear file names
+      fetchDocuments(); // Refresh the documents list
     } catch (error) {
       console.error("Error saving document:", error);
       alert("There was an error saving the document. Please try again.");
     }
   };
+  
 
   const handleEditDocument = (doc) => {
     console.log("Editing document:", doc);
@@ -460,7 +472,7 @@ const handleSaveEdit = () => {
               <div className="flex">
                 <input
                   type="file"
-                  accept=".pdf"
+                  accept=""
                   multiple
                   onChange={handleFileChange}
                   className="p-2 border rounded-md outline-none w-full"
