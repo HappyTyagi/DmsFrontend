@@ -225,7 +225,7 @@ const Category = () => {
               // Button to add a new category
               <button
                 onClick={handleAddCategory}
-                className="bg-rose-900 text-white rounded-2xl p-2 flex items-center text-sm justify-center"
+                className="bg-blue-900 text-white rounded-2xl p-2 flex items-center text-sm justify-center"
               >
                 <PlusCircleIcon className="h-5 w-5 mr-1" /> Add Category
               </button>
@@ -233,7 +233,7 @@ const Category = () => {
               // Button to update an existing category
               <button
                 onClick={handleSaveEdit}
-                className="bg-rose-900 text-white rounded-2xl p-2 flex items-center text-sm justify-center"
+                className="bg-blue-900 text-white rounded-2xl p-2 flex items-center text-sm justify-center"
               >
                 <CheckCircleIcon className="h-5 w-5 mr-1" /> Update
               </button>

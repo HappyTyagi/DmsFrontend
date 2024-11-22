@@ -486,7 +486,7 @@ const BranchEmployee = () => {
                         {editingIndex === null ? (
                             <button
                                 onClick={handleAddEmployee}
-                                className="bg-rose-900 text-white rounded-2xl p-2 flex items-center text-sm justify-center"
+                                className="bg-blue-900 text-white rounded-2xl p-2 flex items-center text-sm justify-center"
                             >
                                 <PlusCircleIcon className="h-5 w-5 mr-1" />
                                 {isSubmitting ? "Submitting..." : "Add User"}
@@ -494,7 +494,7 @@ const BranchEmployee = () => {
                         ) : (
                             <button
                                 onClick={handleSaveEdit}
-                                className="bg-rose-900 text-white rounded-2xl p-2 flex items-center text-sm justify-center"
+                                className="bg-blue-900 text-white rounded-2xl p-2 flex items-center text-sm justify-center"
                             >
                                 <CheckCircleIcon className="h-5 w-5 mr-1" />{" "}
                                 {isSubmitting ? "Submitting..." : "Update"}

@@ -246,7 +246,7 @@ const DocumentManagement = () => {
                   onClick={() => handleAddDocument()}
                   disabled={!isUploadEnabled}
                   className={`ml-2 text-white rounded-xl p-2 ${
-                    isUploadEnabled ? "bg-rose-900" : "bg-gray-400"
+                    isUploadEnabled ? "bg-blue-900" : "bg-gray-400"
                   }`}
                 >
                   Upload
@@ -258,14 +258,14 @@ const DocumentManagement = () => {
             {editingIndex === null ? (
               <button
                 onClick={handleAddDocument}
-                className="bg-rose-900 text-white rounded-2xl p-2 flex items-center text-sm justify-center"
+                className="bg-blue-900 text-white rounded-2xl p-2 flex items-center text-sm justify-center"
               >
                 <PlusCircleIcon className="h-5 w-5 mr-1" /> Add Document
               </button>
             ) : (
               <button
                 onClick={handleSaveEdit}
-                className="bg-rose-900 text-white rounded-2xl p-2 flex items-center text-sm justify-center"
+                className="bg-blue-900 text-white rounded-2xl p-2 flex items-center text-sm justify-center"
               >
                 <CheckCircleIcon className="h-5 w-5 mr-1" /> Update
               </button>

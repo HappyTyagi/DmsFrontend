@@ -345,7 +345,7 @@ const Search = () => {
       {renderSearchFields()}
       <button
         onClick={handleSearch}
-        className="bg-rose-900 text-white rounded-md py-2 px-4 hover:bg-rose-800 transition duration-300"
+        className="bg-blue-900 text-white rounded-md py-2 px-4 hover:bg-blue-800 transition duration-300"
       >
         Search
       </button>

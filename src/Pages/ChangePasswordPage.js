@@ -168,7 +168,7 @@ const ChangePasswordPage = () => {
                         <div className=''>
                             <h2 className="text-3xl font-bold text-center text-gray-900 mb-2">Employee Profile</h2>
                             <div className="flex items-center justify-center mb-4"> {/* New wrapper div for centering */}
-                                <UserCircleIcon className="h-24 w-24 text-rose-800 border-4 border-black rounded-full" />
+                                <UserCircleIcon className="h-24 w-24 text-blue-800 border-4 border-black rounded-full" />
                             </div>
                             <p className="text-xl text-gray-900 ml-24 my-2">Name: <strong>{employee?.name}</strong></p>
                             <p className="text-xl text-gray-900 ml-24 my-2">Role: <strong>{employee?.role.role}</strong></p>
@@ -180,13 +180,13 @@ const ChangePasswordPage = () => {
                             <div className="flex flex-col space-y-4 my-5">
                                 <button
                                     onClick={() => setActiveForm('editProfile')}
-                                    className="bg-rose-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-rose-700 transition duration-300"
+                                    className="bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-300"
                                 >
                                     Edit Profile
                                 </button>
                                 <button
                                     onClick={() => setActiveForm('changePassword')}
-                                    className="bg-rose-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-rose-700 transition duration-300"
+                                    className="bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-300"
                                 >
                                     Change Password
                                 </button>
@@ -212,7 +212,7 @@ const ChangePasswordPage = () => {
                                         id="currentPassword"
                                         value={currentPassword}
                                         onChange={(e) => setCurrentPassword(e.target.value)}
-                                        className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-500"
+                                        className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                                         placeholder="Enter your current password"
                                         required
                                     />
@@ -222,9 +222,9 @@ const ChangePasswordPage = () => {
                                         onClick={toggleCurrentPasswordVisibility} // Create a separate toggle function
                                     >
                                         {showCurrentPassword ? (
-                                            <EyeSlashIcon className="text-rose-900 h-5 w-5" />
+                                            <EyeSlashIcon className="text-blue-900 h-5 w-5" />
                                         ) : (
-                                            <EyeIcon className="text-rose-900 h-5 w-5" />
+                                            <EyeIcon className="text-blue-900 h-5 w-5" />
                                         )}
                                     </button>
                                 </div>
@@ -239,7 +239,7 @@ const ChangePasswordPage = () => {
                                         id="newPassword"
                                         value={newPassword}
                                         onChange={(e) => setNewPassword(e.target.value)}
-                                        className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-500"
+                                        className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                                         placeholder="Enter your new password"
                                         required
                                     />
@@ -249,9 +249,9 @@ const ChangePasswordPage = () => {
                                         onClick={toggleNewPasswordVisibility} // Create a separate toggle function
                                     >
                                         {showNewPassword ? (
-                                            <EyeSlashIcon className="text-rose-900 h-5 w-5" />
+                                            <EyeSlashIcon className="text-blue-900 h-5 w-5" />
                                         ) : (
-                                            <EyeIcon className="text-rose-900 h-5 w-5" />
+                                            <EyeIcon className="text-blue-900 h-5 w-5" />
                                         )}
                                     </button>
                                 </div>
@@ -266,7 +266,7 @@ const ChangePasswordPage = () => {
                                         id="confirmPassword"
                                         value={confirmPassword}
                                         onChange={(e) => setConfirmPassword(e.target.value)}
-                                        className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-500"
+                                        className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                                         placeholder="Confirm your new password"
                                         required
                                     />
@@ -276,9 +276,9 @@ const ChangePasswordPage = () => {
                                         onClick={toggleConfirmPasswordVisibility} // Create a separate toggle function
                                     >
                                         {showConfirmPassword ? (
-                                            <EyeSlashIcon className="text-rose-900 h-5 w-5" />
+                                            <EyeSlashIcon className="text-blue-900 h-5 w-5" />
                                         ) : (
-                                            <EyeIcon className="text-rose-900 h-5 w-5" />
+                                            <EyeIcon className="text-blue-900 h-5 w-5" />
                                         )}
                                     </button>
                                 </div>
@@ -288,7 +288,7 @@ const ChangePasswordPage = () => {
                             <div className='space-x-4'>
                                 <button
                                     type="submit"
-                                    className="bg-rose-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-rose-700 transition duration-300"
+                                    className="bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-300"
                                 >
                                     Change Password
                                 </button>
@@ -316,11 +316,11 @@ const ChangePasswordPage = () => {
                                     className="h-28 w-28 border-2 border-gray-400 rounded-full mb-2 object-cover"
                                 />
                             ) : (
-                                <UserCircleIcon className="h-20 w-20 text-rose-800 border-2 border-gray-400 rounded-full mb-2" />
+                                <UserCircleIcon className="h-20 w-20 text-blue-800 border-2 border-gray-400 rounded-full mb-2" />
                             )}
                             <PencilSquareIcon
                                 onClick={handlePencilClick}
-                                className="h-8 w-8 text-rose-600 cursor-pointer hover:text-rose-800 absolute bottom-0 right-0 transform translate-x-1/2 -translate-y-1/2"
+                                className="h-8 w-8 text-blue-600 cursor-pointer hover:text-blue-800 absolute bottom-0 right-0 transform translate-x-1/2 -translate-y-1/2"
                             />
                             <input
                                 type="file"
@@ -342,7 +342,7 @@ const ChangePasswordPage = () => {
                                     type="text"
                                     id="name"
                                     defaultValue={employee?.name}
-                                    className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-500"
+                                    className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                                     required
                                 />
                             </div>
@@ -354,7 +354,7 @@ const ChangePasswordPage = () => {
                                     type="text"
                                     id="mobile"
                                     defaultValue={employee?.mobile}
-                                    className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-500"
+                                    className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                                     required
                                 />
                             </div>
@@ -362,7 +362,7 @@ const ChangePasswordPage = () => {
                             <div className='space-x-4'>
                                 <button
                                     type="submit"
-                                    className="bg-rose-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-rose-700 transition duration-300"
+                                    className="bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-300"
                                 >
                                     Save Changes
                                 </button>

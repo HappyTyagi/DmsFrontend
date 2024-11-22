@@ -255,11 +255,11 @@ const Branch = () => {
           </div>
           <div className="mt-3 flex justify-start">
             {editingBranchId === null ? (
-              <button onClick={handleAddBranch} className="bg-rose-900 text-white rounded-2xl p-2 flex items-center text-sm justify-center">
+              <button onClick={handleAddBranch} className="bg-blue-900 text-white rounded-2xl p-2 flex items-center text-sm justify-center">
                 <PlusCircleIcon className="h-5 w-5 mr-1" /> Add Branch
               </button>
             ) : (
-              <button onClick={handleSaveEdit} className="bg-rose-900 text-white rounded-2xl p-2 flex items-center text-sm justify-center">
+              <button onClick={handleSaveEdit} className="bg-blue-900 text-white rounded-2xl p-2 flex items-center text-sm justify-center">
                 <CheckCircleIcon className="h-5 w-5 mr-1" /> Update
               </button>
             )}

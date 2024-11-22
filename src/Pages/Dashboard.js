@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { API_HOST } from '../API/apiConfig';
 import axios from "axios";
 import {
   BarChart,
@@ -75,10 +76,10 @@ function Dashboard() {
 
         // Set Authorization header for requests
         const authHeader = { headers: { Authorization: `Bearer ${token}` } };
-
+        const url=`${API_HOST}/Dashboard/GetAllCountsForDashBoard`;
         // Fetch dashboard stats
-        const statsResponse = await axios.get(
-          "http://localhost:8080/Dashboard/GetAllCountsForDashBoard",
+        const statsResponse = await axios.get(url,
+          // "${BRANCH_API}/Dashboard/GetAllCountsForDashBoard",
           {
             ...authHeader,
             params: { employeeId },
@@ -93,9 +94,9 @@ function Dashboard() {
         let summaryUrl = '';
 
         if (role === "ADMIN") {
-          summaryUrl = `http://localhost:8080/api/documents/document/summary/by/${employeeId}`;
+          summaryUrl = `${API_HOST}/api/documents/document/summary/by/${employeeId}`;
         } else {
-          summaryUrl = `http://localhost:8080/api/documents/documents-summary/${employeeId}`;
+          summaryUrl = `${API_HOST}/api/documents/documents-summary/${employeeId}`;
         }
 
         const summaryResponse = await axios.get(summaryUrl, {
@@ -138,12 +139,12 @@ function Dashboard() {
 
   function StatBlock({ title, value, Icon }) {
     return (
-      <div className="bg-white p-3 rounded-r-lg shadow flex items-center justify-between border-l-4 border-rose-800">
+      <div className="bg-white p-3 rounded-r-lg shadow flex items-center justify-between border-l-4 border-blue-800">
         <div>
           <h3 className="text-md font-semibold text-gray-700">{title}</h3>
           <p className="text-2xl font-bold text-gray-900">{value}</p>
         </div>
-        <Icon className="w-8 h-8 text-rose-900" />
+        <Icon className="w-8 h-8 text-blue-900" />
       </div>
     );
   }
