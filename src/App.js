@@ -1,5 +1,6 @@
 import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { HashRouter as Router } from 'react-router-dom';
 import Dashboard from "./Pages/Dashboard";
 import Inbox from "./Pages/Inbox";
 import Users from "./Pages/Users";
@@ -57,7 +58,7 @@ const protectedRoutes = [
 
 function App() {
   return (
-    <BrowserRouter>
+    <Router>
       <div>
         <Routes>
           {protectedRoutes.map((route) => (
@@ -74,7 +75,7 @@ function App() {
           <Route path="/" element={<LoginPage />} />
         </Routes>
       </div>
-    </BrowserRouter>
+    </Router>
   );
 }
 
