@@ -10,6 +10,7 @@ import {
   XMarkIcon,
   PrinterIcon,
 } from "@heroicons/react/24/solid";
+import {API_HOST} from "../API/apiConfig";
 
 const DocumentManagement = ({fieldsDisabled}) => {
   const [formData, setFormData] = useState({
@@ -70,7 +71,7 @@ const DocumentManagement = ({fieldsDisabled}) => {
   const fetchCategory = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:8080/CategoryMaster/findActiveCategory",
+        `${ API_HOST }/CategoryMaster/findActiveCategory`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -85,7 +86,7 @@ const DocumentManagement = ({fieldsDisabled}) => {
   const fetchDocuments = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8080/api/documents/pending/employee/${UserId}`,
+        `${ API_HOST } /api/documents/pending/employee/${UserId}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -105,7 +106,7 @@ const DocumentManagement = ({fieldsDisabled}) => {
       }
 
       const response = await axios.get(
-        `http://localhost:8080/api/documents/byDocumentHeader/${doc.id}`,
+        `${ API_HOST }/api/documents/byDocumentHeader/${doc.id}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -131,7 +132,7 @@ const DocumentManagement = ({fieldsDisabled}) => {
     const fileName = file.docName; // The file name
     
     // Construct the URL based on the Spring Boot @GetMapping pattern
-    const fileUrl = `http://localhost:8080/api/documents/${year}/${month}/${category}/${fileName}`;
+    const fileUrl = `${ API_HOST }/api/documents/${year}/${month}/${category}/${fileName}`;
     
     try {
       // Fetch the file using axios and pass the token in the headers
@@ -193,7 +194,7 @@ const DocumentManagement = ({fieldsDisabled}) => {
     });
 
     try {
-        const response = await fetch("http://localhost:8080/api/documents/upload", {
+        const response = await fetch(`${ API_HOST }/api/documents/upload`, {
             method: "POST",
             headers: {
                 Authorization: `Bearer ${token}`,
@@ -263,7 +264,7 @@ const DocumentManagement = ({fieldsDisabled}) => {
   
     try {
       // Send the payload to the backend
-      const response = await fetch("http://localhost:8080/api/documents/save", {
+      const response = await fetch(`${ API_HOST }/api/documents/save`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -320,7 +321,7 @@ const handleSaveEdit = () => {
   };
 
   // Make an API call to update the document
-  fetch('http://localhost:8080/api/documents/update', {
+  fetch(`${ API_HOST }/api/documents/update`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

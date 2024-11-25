@@ -56,8 +56,6 @@ function Sidebar() {
         totalRejectedStatusDocById: 0,
         departmentCountForBranch: 0,
         nullRoleEmployeeCountForBranch: 0,
-        totalApprovedStatusDocById: 0,
-        totalRejectedStatusDocById: 0,
       };
   });
 
@@ -73,7 +71,7 @@ function Sidebar() {
         }
 
         const response = await axios.get(
-          "http://localhost:8080/Dashboard/GetAllCountsForDashBoard",
+          `${ API_HOST }/Dashboard/GetAllCountsForDashBoard`,
           {
             params: {
               employeeId: employeeId, // Pass employeeId as a query parameter

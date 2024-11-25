@@ -31,7 +31,7 @@ const ChangePasswordPage = () => {
 
         const fetchEmployeeData = async () => {
             try {
-                const response = await axios.get(`http://localhost:8080/employee/findById/${userId}`, {
+                const response = await axios.get(`${ API_HOST }/employee/findById/${userId}`, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
@@ -75,7 +75,7 @@ const ChangePasswordPage = () => {
         };
 
         try {
-            await axios.post('http://localhost:8080/api/change-password', changePasswordData);
+            await axios.post(`${ API_HOST }/api/change-password`, changePasswordData);
             setSuccess("Password changed successfully.");
         } catch (error) {
             if (error.response && error.response.data) {
@@ -104,7 +104,7 @@ const ChangePasswordPage = () => {
         };
 
         try {
-            await axios.put(`http://localhost:8080/employee/update/${userId}`, updateData, {
+            await axios.put(`${ API_HOST }/employee/update/${userId}`, updateData, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },

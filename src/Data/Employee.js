@@ -55,7 +55,7 @@ const UserAddEmployee = () => {
     setError("");
     try {
       const response = await axios.get(
-        `http://localhost:8080/employee/findAll`,
+        `${ API_HOST }/employee/findAll`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("tokenKey")}`,
@@ -80,7 +80,7 @@ const UserAddEmployee = () => {
   
   //     // Fetch branchId using userId
   //     const branchResponse = await axios.get(
-  //       `http://localhost:8080/employee/findById/${userId}`,
+  //       `${ API_HOST }/employee/findById/${userId}`,
   //       {
   //         headers: {
   //           Authorization: `Bearer ${localStorage.getItem("tokenKey")}`,
@@ -92,7 +92,7 @@ const UserAddEmployee = () => {
   
   //     // Fetch employees using the branchId
   //     const employeeResponse = await axios.get(
-  //       `http://localhost:8080/employee/branch/${branchId}`,
+  //       `${ API_HOST }/employee/branch/${branchId}`,
   //       {
   //         headers: {
   //           Authorization: `Bearer ${localStorage.getItem("tokenKey")}`,
@@ -225,7 +225,7 @@ const UserAddEmployee = () => {
         console.log("Employee Data to Send:", employeeData);
 
         const response = await axios.post(
-          "http://localhost:8080/register/create",
+          `${ API_HOST }/register/create`,
           employeeData,
           {
             headers: {
@@ -319,7 +319,7 @@ const UserAddEmployee = () => {
         };
 
         const response = await axios.put(
-          `http://localhost:8080/employee/update/${formData.id}`,
+          `${ API_HOST }/employee/update/${formData.id}`,
           updatedEmployeeData,
           {
             headers: {
@@ -378,7 +378,7 @@ const UserAddEmployee = () => {
 
       // Send the PUT request to update the status
       await axios.put(
-        `http://localhost:8080/employee/updateStatus/${employeeToToggle.id}`, // Updated URL with employee ID
+        `${ API_HOST }/employee/updateStatus/${employeeToToggle.id}`, // Updated URL with employee ID
         newStatus, // Send the new status directly as the request body
         {
           headers: {

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-
+import { API_HOST } from '../API/apiConfig';
 const EmployeeRole = () => {
   const [users, setUsers] = useState([]);
   const [roles, setRoles] = useState([]);
@@ -20,7 +20,7 @@ const EmployeeRole = () => {
   const fetchUsers = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8080/employee/pending-by-branch`,
+        `${API_HOST}/employee/pending-by-branch`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -39,7 +39,7 @@ const EmployeeRole = () => {
   const fetchRoles = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8080/RoleMaster/findActiveRole`,
+        `${ API_HOST }/RoleMaster/findActiveRole`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -62,7 +62,7 @@ const EmployeeRole = () => {
     setIsSubmitting(true); // Disable the button when the request starts
     try {
       const response = await axios.put(
-        `http://localhost:8080/employee/${selectedUser}/role`,
+        `${API_HOST}/employee/${selectedUser}/role`,
         { roleName: selectedRole },
         {
           headers: {

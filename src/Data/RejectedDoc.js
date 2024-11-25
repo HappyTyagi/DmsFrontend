@@ -5,6 +5,7 @@ import {
   ArrowRightIcon,
   PencilIcon,
 } from "@heroicons/react/24/solid";
+import {API_HOST} from "../API/apiConfig";
 
 function RejectedDoc() {
   const [documents, setDocuments] = useState([]);
@@ -30,7 +31,7 @@ function RejectedDoc() {
       // Differentiate between ADMIN and USER API calls
       if (role === "USER") {
         response = await axios.get(
-          `http://localhost:8080/api/documents/rejected/employee/${UserId}`,
+          `${ API_HOST }/api/documents/rejected/employee/${UserId}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -39,7 +40,7 @@ function RejectedDoc() {
         );
       } else if (role === "ADMIN" || role === "BRANCH ADMIN" ||  role === "DEPARTMENT ADMIN") {
         response = await axios.get(
-          `http://localhost:8080/api/documents/rejectedByEmp`,
+          `${ API_HOST }/api/documents/rejectedByEmp`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

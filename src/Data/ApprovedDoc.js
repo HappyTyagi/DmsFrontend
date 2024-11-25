@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { PencilIcon, EyeIcon } from "@heroicons/react/24/solid";
+import {API_HOST} from "../API/apiConfig";
 
 const ApprovedDoc = () => {
   const [formData, setFormData] = useState({
@@ -31,7 +32,7 @@ const ApprovedDoc = () => {
       // Differentiate between ADMIN and USER API calls
       if (role === "USER") {
         response = await axios.get(
-          `http://localhost:8080/api/documents/approved/employee/${UserId}`,
+          `${ API_HOST }/api/documents/approved/employee/${UserId}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -40,7 +41,7 @@ const ApprovedDoc = () => {
         );
       } else if (role === "ADMIN" || role === "BRANCH ADMIN"  ||  role === "DEPARTMENT ADMIN") {
         response = await axios.get(
-          `http://localhost:8080/api/documents/approvedByEmp`,
+          `${ API_HOST }/api/documents/approvedByEmp`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

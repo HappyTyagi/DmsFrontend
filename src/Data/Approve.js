@@ -9,7 +9,7 @@ import {
   XMarkIcon,
   EyeIcon,
 } from "@heroicons/react/24/solid";
-import { DOCUMENTHEADER_API } from "../API/apiConfig";
+import {API_HOST, DOCUMENTHEADER_API} from "../API/apiConfig";
 
 const Approve = () => {
   const [documents, setDocuments] = useState([]);
@@ -51,7 +51,7 @@ const Approve = () => {
     try {
       const userId = localStorage.getItem('userId');
       const token = localStorage.getItem('tokenKey');
-      const response = await axios.get(`http://localhost:8080/employee/findById/${userId}`, {
+      const response = await axios.get(`${API_HOST}/employee/findById/${userId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setUserBranch(response.data.branch);
@@ -88,7 +88,7 @@ const Approve = () => {
       }
 
       const response = await axios.get(
-        `http://localhost:8080/api/documents/byDocumentHeader/${doc.id}`,
+        `${ API_HOST }/api/documents/byDocumentHeader/${doc.id}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -114,7 +114,7 @@ const Approve = () => {
     const fileName = file.docName; // The file name
   
     // Construct the URL based on the Spring Boot @GetMapping pattern
-    const fileUrl = `http://localhost:8080/api/documents/${year}/${month}/${category}/${fileName}`;
+    const fileUrl = `${ API_HOST }/api/documents/${year}/${month}/${category}/${fileName}`;
   
     try {
       // Fetch the file using axios and pass the token in the headers
@@ -152,7 +152,7 @@ const Approve = () => {
       const token = localStorage.getItem(tokenKey);
 
       const response = await axios.patch(
-        `http://localhost:8080/api/documents/${documentToApprove.id}/approval-status`, // Change to PATCH
+        `${ API_HOST }/api/documents/${documentToApprove.id}/approval-status`, // Change to PATCH
         null, // No body needed for the PATCH request since we're using query parameters
         {
           headers: {
@@ -178,7 +178,7 @@ const Approve = () => {
       const token = localStorage.getItem(tokenKey);
 
       const response = await axios.patch(
-        `http://localhost:8080/api/documents/${documentToApprove.id}/approval-status`, // Change to PATCH
+        `${ API_HOST }/api/documents/${documentToApprove.id}/approval-status`, // Change to PATCH
         null, // No body needed for the PATCH request since we're using query parameters
         {
           headers: {

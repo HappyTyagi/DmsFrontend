@@ -59,7 +59,7 @@ const BranchEmployee = () => {
             const userId = localStorage.getItem("userId");
             const token = localStorage.getItem("tokenKey");
             const response = await axios.get(
-                `http://localhost:8080/employee/findById/${userId}`,
+                `${ API_HOST }/employee/findById/${userId}`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -85,7 +85,7 @@ const BranchEmployee = () => {
         try {
             const token = localStorage.getItem("tokenKey");
             const employeeResponse = await axios.get(
-                `http://localhost:8080/employee/branch/${userBranch.id}`,
+                `${ API_HOST }/employee/branch/${userBranch.id}`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -184,7 +184,7 @@ const BranchEmployee = () => {
                 console.log("Employee Data to Send:", employeeData);
 
                 const response = await axios.post(
-                    "http://localhost:8080/register/create",
+                    `${ API_HOST }/register/create`,
                     employeeData,
                     {
                         headers: {
@@ -274,7 +274,7 @@ const BranchEmployee = () => {
                 };
 
                 const response = await axios.put(
-                    `http://localhost:8080/employee/update/${formData.id}`,
+                    `${ API_HOST }/employee/update/${formData.id}`,
                     updatedEmployeeData,
                     {
                         headers: {
@@ -330,7 +330,7 @@ const BranchEmployee = () => {
             const newStatus = employeeToToggle.active ? false : true;
 
             await axios.put(
-                `http://localhost:8080/employee/updateStatus/${employeeToToggle.id}`,
+                `${ API_HOST }/employee/updateStatus/${employeeToToggle.id}`,
                 newStatus,
                 {
                     headers: {

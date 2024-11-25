@@ -31,7 +31,7 @@ const ApprovedDoc = () => {
       // Differentiate between ADMIN, BRANCH ADMIN, and USER API calls
       if (role === "USER") {
         response = await axios.get(
-          `http://localhost:8080/api/documents/approved/employee/${UserId}`,
+          `${ API_HOST }/api/documents/approved/employee/${UserId}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -40,7 +40,7 @@ const ApprovedDoc = () => {
         );
       } else if (role === "ADMIN") {
         response = await axios.get(
-          `http://localhost:8080/api/documents/approvedByEmp`,
+          `${ API_HOST }/api/documents/approvedByEmp`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -50,7 +50,7 @@ const ApprovedDoc = () => {
         );
       } else if (role === "BRANCH ADMIN") {
         response = await axios.get(
-          `http://localhost:8080/api/documents/approvedByBranch/${UserId}`,
+          `${ API_HOST }/api/documents/approvedByBranch/${UserId}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

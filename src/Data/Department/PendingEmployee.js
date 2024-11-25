@@ -20,7 +20,7 @@ const EmployeeRole = () => {
   const fetchUsers = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8080/employee/pending-by-department`,
+        `${ API_HOST }/employee/pending-by-department`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -36,7 +36,7 @@ const EmployeeRole = () => {
   const fetchRoles = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8080/RoleMaster/findActiveRole`,
+        `${ API_HOST }/RoleMaster/findActiveRole`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -59,7 +59,7 @@ const EmployeeRole = () => {
     setIsSubmitting(true);
     try {
       const response = await axios.put(
-        `http://localhost:8080/employee/${selectedUser}/role`,
+        `${ API_HOST }/employee/${selectedUser}/role`,
         { roleName: selectedRole },
         {
           headers: {

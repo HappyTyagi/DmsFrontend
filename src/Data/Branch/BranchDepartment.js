@@ -50,7 +50,7 @@ const BranchDepartments = () => {
             const userId = localStorage.getItem("userId");
             const token = localStorage.getItem("tokenKey");
             const response = await axios.get(
-                `http://localhost:8080/employee/findById/${userId}`,
+                `${ API_HOST }/employee/findById/${userId}`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,

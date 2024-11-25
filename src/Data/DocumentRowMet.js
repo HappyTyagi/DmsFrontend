@@ -51,7 +51,7 @@ const DocumentManagement = () => {
   const fetchCategory = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:8080/CategoryMaster/findAll",
+        `${ API_HOST }/CategoryMaster/findAll`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -67,7 +67,7 @@ const DocumentManagement = () => {
   const fetchDocuments = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8080/api/documents/pending/employee/${UserId}`,
+        `${ API_HOST }/api/documents/pending/employee/${UserId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -130,7 +130,7 @@ const DocumentManagement = () => {
   const handleAddDocument = async () => {
     try {
       const response = await axios.post(
-        `http://localhost:8080/api/documents/save`,
+        `${ API_HOST }/api/documents/save`,
         formData,
         {
           headers: {
@@ -153,7 +153,7 @@ const DocumentManagement = () => {
   const handleSaveEdit = async () => {
     try {
       await axios.put(
-        `http://localhost:8080/api/documents/update/${formData.id}`,
+        `${ API_HOST }/api/documents/update/${formData.id}`,
         formData,
         {
           headers: { Authorization: `Bearer ${token}` },
