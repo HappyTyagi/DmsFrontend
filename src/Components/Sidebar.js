@@ -11,6 +11,7 @@ import {
   DocumentTextIcon,
   DocumentArrowUpIcon,
   DocumentCheckIcon,
+  DocumentChartBarIcon,
   KeyIcon,
   UserPlusIcon,
   ComputerDesktopIcon,
@@ -34,30 +35,30 @@ function Sidebar() {
     return savedCounts
       ? JSON.parse(savedCounts)
       : {
-        totalUser: 0,
-        branchUser: 0,
-        totalDocument: 0,
-        pendingDocument: 0,
-        storageUsed: 0,
-        totalBranches: 0,
-        totalDepartment: 0,
-        totalRoles: 0,
-        documentType: 0,
-        annualYear: 0,
-        totalNullEmployeeType: 0,
-        totalCategories: 0,
-        totalApprovedDocuments: 0,
-        totalRejectedDocuments: 0,
-        totalPendingDocuments: 0,
-        totalApprovedDocumentsById: 0,
-        totalRejectedDocumentsById: 0,
-        totalPendingDocumentsById: 0,
-        totalDocumentsById: 0,
-        totalApprovedStatusDocById: 0,
-        totalRejectedStatusDocById: 0,
-        departmentCountForBranch: 0,
-        nullRoleEmployeeCountForBranch: 0,
-      };
+          totalUser: 0,
+          branchUser: 0,
+          totalDocument: 0,
+          pendingDocument: 0,
+          storageUsed: 0,
+          totalBranches: 0,
+          totalDepartment: 0,
+          totalRoles: 0,
+          documentType: 0,
+          annualYear: 0,
+          totalNullEmployeeType: 0,
+          totalCategories: 0,
+          totalApprovedDocuments: 0,
+          totalRejectedDocuments: 0,
+          totalPendingDocuments: 0,
+          totalApprovedDocumentsById: 0,
+          totalRejectedDocumentsById: 0,
+          totalPendingDocumentsById: 0,
+          totalDocumentsById: 0,
+          totalApprovedStatusDocById: 0,
+          totalRejectedStatusDocById: 0,
+          departmentCountForBranch: 0,
+          nullRoleEmployeeCountForBranch: 0,
+        };
   });
 
   useEffect(() => {
@@ -72,7 +73,7 @@ function Sidebar() {
         }
 
         const response = await axios.get(
-          `${ API_HOST }/Dashboard/GetAllCountsForDashBoard`,
+          `${API_HOST}/Dashboard/GetAllCountsForDashBoard`,
           {
             params: {
               employeeId: employeeId, // Pass employeeId as a query parameter
@@ -108,6 +109,10 @@ function Sidebar() {
     return localStorage.getItem("isDocumentOpen") === "true";
   });
 
+  const [isReportOpen, setReportOpen] = useState(() => {
+    return localStorage.getItem("isReportOpen") === "true";
+  });
+
   const handleLogout = () => {
     localStorage.removeItem(tokenKey);
     sessionStorage.removeItem("counts");
@@ -124,6 +129,12 @@ function Sidebar() {
     const newDocumentOpenState = !isDocumentOpen;
     setDocumentOpen(newDocumentOpenState);
     localStorage.setItem("isDocumentOpen", newDocumentOpenState);
+  };
+
+  const handleReportToggle = () => {
+    const newReportOpenState = !isReportOpen;
+    setReportOpen(newReportOpenState);
+    localStorage.setItem("isReportOpen", newReportOpenState);
   };
 
   const isActive = (path) =>
@@ -190,8 +201,11 @@ function Sidebar() {
                 count={counts.totalRejectedDocumentsById}
               />
               {/* Added Search Documents Link */}
-              <SidebarLink to="/search" icon={DocumentTextIcon} text="Search Documents" />
-
+              <SidebarLink
+                to="/search"
+                icon={DocumentTextIcon}
+                text="Search Documents"
+              />
             </>
           )}
 
@@ -311,11 +325,48 @@ function Sidebar() {
                       count={counts.totalRejectedDocuments}
                     />
                     {/* Added Search Documents Link */}
-                    <SidebarLink to="/search" icon={DocumentTextIcon} text="Search Documents" />
+                    <SidebarLink
+                      to="/search"
+                      icon={DocumentTextIcon}
+                      text="Search Documents"
+                    />
                   </div>
                 )}
               </div>
+              <div>
+                <button
+                  onClick={handleReportToggle}
+                  className="w-full px-3 py-1 rounded-lg text-xs font-lg flex items-center justify-between text-white hover:bg-blue-950 hover:text-white"
+                >
+                  <div className="flex items-center">
+                    <DocumentChartBarIcon className="h-5 w-5 mr-3" />
+                    Report Section
+                  </div>
+                  {isReportOpen ? (
+                    <ChevronDownIcon className="h-4 w-4" />
+                  ) : (
+                    <ChevronRightIcon className="h-4 w-4" />
+                  )}
+                </button>
+                {isReportOpen && (
+                  <div className="ml-2 flex flex-col space-y-1">
+                    <hr className="border-t border-blue-800 mt-1" />
+                    <SidebarLink
+                      // to="/reject-by-admin"
+                      icon={DocumentTextIcon}
+                      text="Document Report"
+                      count={counts.totalRejectedDocuments}
+                    />
 
+                    <SidebarLink
+                      // to="/reject-by-admin"
+                      icon={DocumentTextIcon}
+                      text="User Report"
+                      count={counts.totalRejectedDocuments}
+                    />
+                  </div>
+                )}
+              </div>
             </>
           )}
 
@@ -384,6 +435,40 @@ function Sidebar() {
                     />
                   </div>
                 )}
+                <div>
+                <button
+                  onClick={handleReportToggle}
+                  className="w-full px-3 py-1 rounded-lg text-xs font-lg flex items-center justify-between text-white hover:bg-blue-950 hover:text-white"
+                >
+                  <div className="flex items-center">
+                    <DocumentChartBarIcon className="h-5 w-5 mr-3" />
+                    Report Section
+                  </div>
+                  {isReportOpen ? (
+                    <ChevronDownIcon className="h-4 w-4" />
+                  ) : (
+                    <ChevronRightIcon className="h-4 w-4" />
+                  )}
+                </button>
+                {isReportOpen && (
+                  <div className="ml-2 flex flex-col space-y-1">
+                    <hr className="border-t border-blue-800 mt-1" />
+                    <SidebarLink
+                      // to="/reject-by-admin"
+                      icon={DocumentTextIcon}
+                      text="Document Report"
+                      count={counts.totalRejectedDocuments}
+                    />
+
+                    <SidebarLink
+                      // to="/reject-by-admin"
+                      icon={DocumentTextIcon}
+                      text="User Report"
+                      count={counts.totalRejectedDocuments}
+                    />
+                  </div>
+                )}
+              </div>
               </div>
             </>
           )}
@@ -452,6 +537,40 @@ function Sidebar() {
                     />
                   </div>
                 )}
+                <div>
+                <button
+                  onClick={handleReportToggle}
+                  className="w-full px-3 py-1 rounded-lg text-xs font-lg flex items-center justify-between text-white hover:bg-blue-950 hover:text-white"
+                >
+                  <div className="flex items-center">
+                    <DocumentChartBarIcon className="h-5 w-5 mr-3" />
+                    Report Section
+                  </div>
+                  {isReportOpen ? (
+                    <ChevronDownIcon className="h-4 w-4" />
+                  ) : (
+                    <ChevronRightIcon className="h-4 w-4" />
+                  )}
+                </button>
+                {isReportOpen && (
+                  <div className="ml-2 flex flex-col space-y-1">
+                    <hr className="border-t border-blue-800 mt-1" />
+                    <SidebarLink
+                      // to="/reject-by-admin"
+                      icon={DocumentTextIcon}
+                      text="Document Report"
+                      count={counts.totalRejectedDocuments}
+                    />
+
+                    <SidebarLink
+                      // to="/reject-by-admin"
+                      icon={DocumentTextIcon}
+                      text="User Report"
+                      count={counts.totalRejectedDocuments}
+                    />
+                  </div>
+                )}
+              </div>
               </div>
             </>
           )}
