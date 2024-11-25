@@ -10,6 +10,7 @@ import {
 } from "@heroicons/react/24/solid";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { API_HOST } from "../../API/apiConfig";
 
 const BranchEmployee = () => {
     const [employees, setEmployees] = useState([]);

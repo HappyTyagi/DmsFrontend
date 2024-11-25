@@ -215,7 +215,7 @@ const Search = () => {
   userRole=localStorage.getItem('role');
   const renderSearchFields = () => {
     return (
-      <div className="grid grid-cols-3 gap-4 mb-4">
+      <div className="grid grid-cols-3 gap-4 mb-4 bg-slate-100 p-4 rounded-lg">
         <input
           type="text"
           name="fileNo"
@@ -341,7 +341,7 @@ const Search = () => {
   };
 
   return (
-    <div className="bg-blue-100 p-4 rounded-lg shadow-sm mb-4">
+    <div className="bg-white p-4 rounded-lg shadow-sm mb-4">
       <h2 className="text-lg font-semibold mb-3">Search Documents</h2>
       {renderSearchFields()}
       <button
