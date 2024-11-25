@@ -11,6 +11,7 @@ import {
     PlusCircleIcon,
 } from '@heroicons/react/24/solid';
 import { DEPAETMENT_API, EMPLOYEE_API } from '../../API/apiConfig';
+import { API_HOST } from "../../API/apiConfig";
 
 const BranchDepartments = () => {
     const [departments, setDepartments] = useState([]);

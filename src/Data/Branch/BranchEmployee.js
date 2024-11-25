@@ -17,6 +17,7 @@ import {
     DEPAETMENT_API,
     ROLE_API,
 } from "../../API/apiConfig";
+import { API_HOST } from "../../API/apiConfig";
 
 const BranchEmployee = () => {
     const [employees, setEmployees] = useState([]);
@@ -539,7 +540,7 @@ const BranchEmployee = () => {
                         </div>
 
                         <table className="w-full border-collapse border">
-                            <thead className="bg-gray-100">
+                            <thead className="bg-slate-100">
                                 <tr>
                                     <th className="border p-2 text-left">SR.</th>
                                     <th className="border p-2 text-left">Name</th>

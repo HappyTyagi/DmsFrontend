@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { KeyIcon, EyeSlashIcon, EyeIcon, PencilSquareIcon, UserCircleIcon } from '@heroicons/react/24/solid';
 import axios from 'axios';
+import { API_HOST } from "../API/apiConfig";
 
 const ChangePasswordPage = () => {
     const [activeForm, setActiveForm] = useState(null);

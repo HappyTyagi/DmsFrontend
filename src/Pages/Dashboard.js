@@ -152,7 +152,7 @@ function Dashboard() {
   const role = localStorage.getItem("role");
 
   return (
-    <div className="flex flex-row bg-neutral-100 h-screen w-screen overflow-hidden">
+    <div className="flex flex-row bg-gray-200 h-screen w-screen overflow-hidden">
       {sidebarOpen && <Sidebar />}
       <div className="flex flex-col flex-1">
         <Header toggleSidebar={toggleSidebar} />

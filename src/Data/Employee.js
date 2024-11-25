@@ -17,6 +17,7 @@ import {
   DEPAETMENT_API,
   ROLE_API,
 } from "../API/apiConfig"; // Import your API URLs
+import { API_HOST } from "../API/apiConfig";
 
 const UserAddEmployee = () => {
   const [employees, setEmployees] = useState([]);

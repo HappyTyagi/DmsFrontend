@@ -21,6 +21,7 @@ import {
   ClipboardDocumentListIcon,
 } from "@heroicons/react/24/solid";
 import logo2 from "../Assets/logo2.jpg";
+import { API_HOST } from "../API/apiConfig";
 
 const tokenKey = "tokenKey";
 
