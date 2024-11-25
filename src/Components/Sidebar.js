@@ -20,7 +20,7 @@ import {
   ShoppingCartIcon,
   ClipboardDocumentListIcon,
 } from "@heroicons/react/24/solid";
-import logo2 from "../Assets/logo2.jpg";
+import logo3 from "../Assets/logo3.png";
 import { API_HOST } from "../API/apiConfig";
 
 const tokenKey = "tokenKey";
@@ -155,8 +155,8 @@ function Sidebar() {
   return (
     <div className="h-screen flex flex-col justify-between bg-blue-800 text-white w-52 p-1 transition-all duration-300">
       <div>
-        <div className="flex items-center justify-center mb-2">
-          <img className="flex w-30 h-30" src={logo2} alt="DMS" />
+        <div className="flex items-center border-b border-t justify-center mb-2">
+          <img className="flex w-30 h-30" src={logo3} alt="DMS" />
         </div>
         <nav className="flex flex-col space-y-1">
           <hr className="border-t border-blue-800" />
