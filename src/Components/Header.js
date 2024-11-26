@@ -11,7 +11,7 @@ function Header({ toggleSidebar, userName }) {
 
   const handleLogout = () => {
     localStorage.removeItem('Token');
-    navigate('/auth');
+    navigate('/');
   };
 
   const handleChangePassword = () => {
