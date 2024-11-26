@@ -24,6 +24,8 @@ import BranchUsers from "./Pages/Branch/BranchUsers";
 import DepartmentUsers from "./Pages/Department/DepartmentUsers"
 import BranchDepartments from "./Pages/Branch/BranchDepartments"
 import PendingUsers from "./Pages/Department/PendingUsers";
+import UserReports from "./Pages/UserReports";
+import DocumentsReport from "./Pages/DocumentsReport";  
 // Define the roles
 const ADMIN = "ADMIN";
 const USER = "USER";
@@ -51,6 +53,8 @@ const protectedRoutes = [
   { path: "/all-documents", element: <Documents />, allowedRoles: [USER, ] }, 
   { path: "/approvedDocs", element: <ApprovedDocs />, allowedRoles: [USER, ] },
   { path: "/rejectedDocs", element: <RejectedDocs />, allowedRoles: [USER, ] }, 
+  { path: "/userReport", element: <UserReports />, allowedRoles: [ADMIN,BRANCH_ADMIN,DEPARTMENT_ADMIN] }, 
+  { path: "/documentReport", element: <DocumentsReport />, allowedRoles: [ADMIN,BRANCH_ADMIN,DEPARTMENT_ADMIN] }, 
   { path: "/change-password", element: <ChangePasswordPage />, allowedRoles: [USER, ADMIN, BRANCH_ADMIN,DEPARTMENT_ADMIN] }, // Allow BRANCH_ADMIN access
   { path: "/search", element: <SearchDoc />, allowedRoles: [USER, ADMIN, BRANCH_ADMIN,DEPARTMENT_ADMIN] }, // Add the search route
 ];

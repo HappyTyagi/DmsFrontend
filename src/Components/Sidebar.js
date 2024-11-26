@@ -12,6 +12,9 @@ import {
   DocumentArrowUpIcon,
   DocumentCheckIcon,
   DocumentChartBarIcon,
+  DocumentMinusIcon,
+  DocumentMagnifyingGlassIcon,
+  DocumentIcon,
   KeyIcon,
   UserPlusIcon,
   ComputerDesktopIcon,
@@ -21,6 +24,9 @@ import {
   ShoppingCartIcon,
   ClipboardDocumentListIcon,
 } from "@heroicons/react/24/solid";
+import { RiFileUserFill } from "react-icons/ri";
+import { IoDocumentLock } from "react-icons/io5";
+import { FaRegFile, FaTimesCircle } from 'react-icons/fa';
 import logo3 from "../Assets/logo3.png";
 import { API_HOST } from "../API/apiConfig";
 
@@ -294,7 +300,7 @@ function Sidebar() {
                   className="w-full px-3 py-1 rounded-lg text-xs font-lg flex items-center justify-between text-white hover:bg-blue-950 hover:text-white"
                 >
                   <div className="flex items-center">
-                    <DocumentTextIcon className="h-5 w-5 mr-3" />
+                    <DocumentIcon className="h-5 w-5 mr-3" />
                     Document
                   </div>
                   {isDocumentOpen ? (
@@ -308,7 +314,7 @@ function Sidebar() {
                     <hr className="border-t border-blue-800 mt-1" />
                     <SidebarLink
                       to="/approve-documents"
-                      icon={LockClosedIcon}
+                      icon={IoDocumentLock}
                       text="Wait For Approve"
                       count={counts.totalPendingDocuments}
                     />
@@ -320,14 +326,14 @@ function Sidebar() {
                     />
                     <SidebarLink
                       to="/reject-by-admin"
-                      icon={DocumentTextIcon}
+                      icon={DocumentMinusIcon}
                       text="Rejected Document"
                       count={counts.totalRejectedDocuments}
                     />
                     {/* Added Search Documents Link */}
                     <SidebarLink
                       to="/search"
-                      icon={DocumentTextIcon}
+                      icon={DocumentMagnifyingGlassIcon}
                       text="Search Documents"
                     />
                   </div>
@@ -352,17 +358,17 @@ function Sidebar() {
                   <div className="ml-2 flex flex-col space-y-1">
                     <hr className="border-t border-blue-800 mt-1" />
                     <SidebarLink
-                      // to="/reject-by-admin"
+                      to="/documentReport"
                       icon={DocumentTextIcon}
                       text="Document Report"
-                      count={counts.totalRejectedDocuments}
+                      // count={counts.totalRejectedDocuments}
                     />
 
                     <SidebarLink
-                      // to="/reject-by-admin"
-                      icon={DocumentTextIcon}
+                      to="/userReport"
+                      icon={RiFileUserFill}
                       text="User Report"
-                      count={counts.totalRejectedDocuments}
+                      // count={counts.totalRejectedDocuments}
                     />
                   </div>
                 )}
