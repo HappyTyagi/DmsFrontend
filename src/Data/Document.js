@@ -11,6 +11,10 @@ import {
   PrinterIcon,
 } from "@heroicons/react/24/solid";
 import {API_HOST} from "../API/apiConfig";
+import { 
+  DOCUMENTHEADER_API, 
+  UPLOADFILE_API 
+} from '../API/apiConfig';
 
 const DocumentManagement = ({fieldsDisabled}) => {
   const [formData, setFormData] = useState({
@@ -83,45 +87,102 @@ const DocumentManagement = ({fieldsDisabled}) => {
   };
 
   // Function to fetch documents
-  const fetchDocuments = async () => {
-    try {
-      const response = await axios.get(
-        `${ API_HOST } /api/documents/pending/employee/${UserId}`,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
-      setDocuments(response.data);
-      setTotalItems(response.data.length);
-    } catch (error) {
-      console.error("Error fetching documents:", error);
-    }
-  };
-
-  const fetchPaths = async (doc) => {
-    try {
-      const token = localStorage.getItem("tokenKey");
-      if (!token) {
-        throw new Error("No authentication token found.");
+  // Function to fetch documents
+const fetchDocuments = async () => {
+  try {
+    const response = await axios.get(
+      `${DOCUMENTHEADER_API}/pending/employee/${UserId}`,
+      {
+        headers: { Authorization: `Bearer ${token}` },
       }
-
-      const response = await axios.get(
-        `${ API_HOST }/api/documents/byDocumentHeader/${doc.id}`,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
-
-      console.log("paths", response.data);
-
-      setSelectedDoc((prevDoc) => ({
-        ...prevDoc,
-        paths: response.data || [], // Ensure paths is an array
-      }));
-    } catch (error) {
-      console.error("Error fetching documents:", error.message || error);
+    );
+    setDocuments(response.data);
+    setTotalItems(response.data.length);
+  } catch (error) {
+    console.error("Error fetching documents:", error);
+    // Optional: Add more detailed error handling
+    if (error.response) {
+      // The request was made and the server responded with a status code
+      console.error("Error response data:", error.response.data);
+      console.error("Error response status:", error.response.status);
+    } else if (error.request) {
+      // The request was made but no response was received
+      console.error("No response received:", error.request);
+    } else {
+      // Something happened in setting up the request
+      console.error("Error setting up request:", error.message);
     }
-  };
+  }
+};
+
+const fetchPaths = async (doc) => {
+   try {
+     const token = localStorage.getItem("tokenKey");
+     if (!token) {
+       throw new Error("No authentication token found.");
+     }
+     
+     // More comprehensive document validation
+     if (!doc) {
+       console.error("Document is null or undefined");
+       return null;
+     }
+
+     if (!doc.id) {
+       console.error("Invalid document: No ID found", doc);
+       return null;
+     }
+
+     // Validate doc.id is not just a falsy value
+     const documentId = doc.id.toString().trim();
+     if (!documentId) {
+       console.error("Document ID is empty or invalid", doc);
+       return null;
+     }
+
+     console.log(`Attempting to fetch paths for document ID: ${documentId}`);
+     console.log(`Full URL: ${DOCUMENTHEADER_API}/byDocumentHeader/${documentId}`);
+
+     const response = await axios.get(
+       `${DOCUMENTHEADER_API}/byDocumentHeader/${documentId}`,
+       {
+         headers: {
+           Authorization: `Bearer ${token}`,
+           'Content-Type': 'application/json'
+         },
+       }
+     );
+
+     console.log("Paths response:", response.data);
+
+     setSelectedDoc((prevDoc) => ({
+       ...prevDoc,
+       paths: Array.isArray(response.data) ? response.data : [], 
+     }));
+
+     return response.data; // Optional: return the data
+   } catch (error) {
+     // More detailed error logging
+     console.error("Error in fetchPaths:", error);
+
+     // More comprehensive error handling
+     if (axios.isAxiosError(error)) {
+       if (error.response) {
+         console.error("Server responded with error:", {
+           status: error.response.status,
+           data: error.response.data
+         });
+       } else if (error.request) {
+         console.error("No response received:", error.request);
+       }
+     }
+
+     // Optional: more user-friendly error handling
+     alert(`Failed to fetch document paths: ${error.message || 'Unknown error'}`);
+
+     return null; // Explicitly return null on error
+   }
+};
 
   const openFile = async (file) => {
     const token = localStorage.getItem("tokenKey"); // Get the token from localStorage
@@ -536,7 +597,7 @@ const handleSaveEdit = () => {
           )}
         </div>
 
-        <div className="overflow-x-auto bg-cyan-100">
+        <div className="overflow-x-auto bg-white">
           <table className="w-full border-collapse border">
             <thead>
               <tr className="bg-slate-100">
