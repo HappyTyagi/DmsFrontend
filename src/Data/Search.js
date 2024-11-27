@@ -6,6 +6,10 @@ import {
   XMarkIcon,
   PrinterIcon,
 } from "@heroicons/react/24/solid";
+import {
+  DOCUMENTHEADER_API,
+  UPLOADFILE_API
+} from '../API/apiConfig';
 
 const Search = () => {
   const [searchCriteria, setSearchCriteria] = useState({
@@ -33,6 +37,15 @@ const Search = () => {
     fetchCategories();
     fetchBranches();
   }, []);
+  useEffect(() => {
+    if (userBranch?.id) {
+      setSearchCriteria((prevCriteria) => ({
+        ...prevCriteria,
+        branch: userBranch.id,
+      }));
+      fetchDepartments(userBranch.id);  // Fetch departments for the fixed branch
+    }
+  }, [userBranch]); // Fetch departments when userBranch changes
 
   useEffect(() => {
     if (searchCriteria.branch) {
@@ -110,24 +123,65 @@ const Search = () => {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      setDepartmentOptions(response.data);
+      setDepartmentOptions(response.data);  // Populate department options
     } catch (error) {
-      console.error('Error fetching departments:', error);
+      console.error("Error fetching departments:", error);
     }
   };
 
   const fetchPaths = async (doc) => {
     try {
-      const token = localStorage.getItem('tokenKey');
+      const token = localStorage.getItem("tokenKey");
+      if (!token) {
+        throw new Error("No authentication token found.");
+      }
+
+      // Add a null check before accessing doc.id
+      if (!doc || !doc.id) {
+        console.error("Invalid document object");
+        return;
+      }
+
+      // Log the exact URL being called
+      console.log(`Attempting to fetch paths for document ID: ${doc.id}`);
+      console.log(`Full URL: ${DOCUMENTHEADER_API}/byDocumentHeader/${doc.id}`);
+
       const response = await axios.get(
-        `${API_HOST}/api/documents/${doc.id}/paths`,
+        `${DOCUMENTHEADER_API}/byDocumentHeader/${doc.id}`,
         {
-          headers: { Authorization: `Bearer ${token}` },
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          },
         }
       );
-      setSelectedDoc(prev => ({ ...prev, paths: response.data }));
+
+      console.log("Paths response:", response.data);
+
+      setSelectedDoc((prevDoc) => ({
+        ...prevDoc,
+        paths: response.data || [], // Ensure paths is an array
+      }));
     } catch (error) {
-      console.error('Error fetching document paths:', error);
+      // More detailed error logging
+      console.error("Error fetching documents:", error);
+
+      // Log specific axios error details
+      if (error.response) {
+        // The request was made and the server responded with a status code
+        console.error("Error response data:", error.response.data);
+        console.error("Error response status:", error.response.status);
+        console.error("Error response headers:", error.response.headers);
+      } else if (error.request) {
+        // The request was made but no response was received
+        console.error("No response received:", error.request);
+      } else {
+        // Something happened in setting up the request
+        console.error("Error message:", error.message);
+      }
+
+      // Optionally, show a user-friendly error message
+      alert(`Failed to fetch document paths: ${error.message}`);
     }
   };
 
@@ -189,30 +243,41 @@ const Search = () => {
   };
 
   const openFile = async (file) => {
-    const token = localStorage.getItem("tokenKey");
-    const createdOnDate = new Date(file.createdOn);
-    const year = createdOnDate.getFullYear();
-    const month = String(createdOnDate.getMonth() + 1).padStart(2, "0");
-    const category = file.documentHeader.categoryMaster.name;
-    const fileName = file.docName;
+    const token = localStorage.getItem("tokenKey"); // Get the token from localStorage
+    const createdOnDate = new Date(file.createdOn); // Convert timestamp to Date object
+    const year = createdOnDate.getFullYear(); // Extract year
+    const month = String(createdOnDate.getMonth() + 1).padStart(2, "0"); // Extract month and pad with zero
+    const category = file.documentHeader.categoryMaster.name; // Get the category name
+    const fileName = file.docName; // The file name
 
+    // Construct the URL based on the Spring Boot @GetMapping pattern
     const fileUrl = `${API_HOST}/api/documents/${year}/${month}/${category}/${fileName}`;
 
     try {
+      // Fetch the file using axios and pass the token in the headers
       const response = await axios.get(fileUrl, {
         headers: { Authorization: `Bearer ${token}` },
-        responseType: 'blob'
+        responseType: "blob", // Fetch the file as a blob
       });
 
-      const blob = new Blob([response.data], { type: 'application/pdf' });
+      // Get the MIME type of the file from the response headers
+      const contentType = response.headers["content-type"];
+
+      // Create a blob from the response
+      const blob = new Blob([response.data], { type: contentType });
+
+      // Generate a URL for the blob
       const blobUrl = window.URL.createObjectURL(blob);
+
+      // Open the blob in a new tab
       window.open(blobUrl, "_blank");
     } catch (error) {
       console.error("Error fetching file:", error);
+      alert("There was an error opening the file. Please try again.");
     }
   };
 
-  userRole=localStorage.getItem('role');
+  userRole = localStorage.getItem('role');
   const renderSearchFields = () => {
     return (
       <div className="grid grid-cols-3 gap-4 mb-4 bg-slate-100 p-4 rounded-lg">
@@ -298,10 +363,12 @@ const Search = () => {
               value={searchCriteria.branch}
               onChange={handleInputChange}
               className="p-2 border rounded-md outline-none"
-              disabled
+              disabled={true}  // Branch is fixed, so no need to change
             >
               <option value={userBranch?.id}>{userBranch?.name}</option>
             </select>
+
+            {/* Department Dropdown */}
             <select
               name="department"
               value={searchCriteria.department}
@@ -309,11 +376,15 @@ const Search = () => {
               className="p-2 border rounded-md outline-none"
             >
               <option value="">Select Department</option>
-              {departmentOptions.map((department) => (
-                <option key={department.id} value={department.id}>
-                  {department.name}
-                </option>
-              ))}
+              {departmentOptions.length > 0 ? (
+                departmentOptions.map((department) => (
+                  <option key={department.id} value={department.id}>
+                    {department.name}
+                  </option>
+                ))
+              ) : (
+                <option value="">No Departments Available</option>
+              )}
             </select>
           </>
         ) : (
@@ -435,7 +506,7 @@ const Search = () => {
                 </div>
               </div>
 
-            
+
 
               <div className="text-left">
                 <p className="text-sm text-gray-600">
