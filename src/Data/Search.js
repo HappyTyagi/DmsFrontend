@@ -32,6 +32,8 @@ const Search = () => {
   let [userRole, setUserRole] = useState(null);
   const [noResultsFound, setNoResultsFound] = useState(false);
 
+
+
   useEffect(() => {
     fetchUserDetails();
     fetchCategories();
