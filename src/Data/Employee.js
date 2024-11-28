@@ -572,6 +572,8 @@ const UserAddEmployee = () => {
               </option>
             </select>
 
+            
+
             {/* Department Selection */}
             <select
               name="department"
